@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CodyMentor — Software House Sahiwal</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          apple: ['-apple-system','BlinkMacSystemFont','SF Pro Display','SF Pro Text','Helvetica Neue','Arial','sans-serif'],
+          mono: ['SF Mono','Fira Code','Fira Mono','Roboto Mono','monospace'],
+        },
+        colors: {
+          apple: {
+            blue:    '#0071E3',
+            bluehov: '#0077ED',
+            bg:      '#F5F5F7',
+            dark:    '#0A0A0B',
+            mid:     '#1D1D1F',
+            gray:    '#6E6E73',
+            border:  '#D2D2D7',
+            white:   '#FFFFFF',
+          }
+        },
+        letterSpacing: { tight2: '-0.03em', tight3: '-0.04em' },
+        backdropBlur: { xs: '8px' },
+      }
+    }
+  }
+</script>
+<style>
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif; background: #FFFFFF; color: #1D1D1F; margin: 0; }
+
+  /* NAV */
+  .nav-blur { backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); background: rgba(255,255,255,0.82); border-bottom: 1px solid rgba(210,210,215,0.6); }
+
+  /* HERO */
+  .hero-gradient { background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,113,227,0.12) 0%, transparent 70%); }
+  .hero-grid { background-image: linear-gradient(rgba(210,210,215,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(210,210,215,0.25) 1px, transparent 1px); background-size: 60px 60px; }
+
+  /* TYPEWRITER */
+  .typewriter { display: inline; border-right: 2px solid #0071E3; animation: blink .75s step-end infinite; }
+  @keyframes blink { 0%,100%{border-color:#0071E3} 50%{border-color:transparent} }
+
+  /* CARD GLASS */
+  .card-glass { background: rgba(255,255,255,0.72); backdrop-filter: blur(20px) saturate(200%); -webkit-backdrop-filter: blur(20px) saturate(200%); border: 1px solid rgba(210,210,215,0.7); transition: box-shadow .3s ease, transform .3s ease; }
+  .card-glass:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.10); transform: translateY(-3px); }
+
+  /* STAT CARD */
+  .stat-card { background: #F5F5F7; border: 1px solid #D2D2D7; transition: background .2s; }
+  .stat-card:hover { background: #EBEBED; }
+
+  /* BADGE */
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,113,227,0.08); border: 1px solid rgba(0,113,227,0.2); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: #0071E3; letter-spacing: 0.01em; }
+
+  /* SECTION DIVIDER */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, #D2D2D7 20%, #D2D2D7 80%, transparent); }
+
+  /* BUTTON */
+  .btn-primary { background: #0071E3; color: #fff; border: none; border-radius: 980px; padding: 12px 28px; font-size: 15px; font-weight: 500; cursor: pointer; transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: #0077ED; transform: scale(1.02); }
+  .btn-ghost { background: transparent; color: #0071E3; border: 1.5px solid #0071E3; border-radius: 980px; padding: 11px 26px; font-size: 15px; font-weight: 500; cursor: pointer; transition: background .2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-ghost:hover { background: rgba(0,113,227,0.06); }
+
+  /* ICON WRAP */
+  .icon-wrap { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+
+  /* SCROLL REVEAL - disabled */
+  .reveal { opacity: 1; transform: none; }
+
+  /* TAG */
+  .tag { background: #F5F5F7; border: 1px solid #D2D2D7; border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #6E6E73; font-weight: 500; }
+
+  /* REVIEW STAR */
+  .star { color: #FF9F0A; }
+
+  /* MARQUEE */
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .marquee-inner { animation: marquee 22s linear infinite; display: flex; gap: 40px; }
+  .marquee-inner:hover { animation-play-state: paused; }
+
+  /* FOOTER GRADIENT */
+  .footer-top { background: linear-gradient(180deg, #F5F5F7 0%, #fff 100%); }
+
+  /* NAV LINK */
+  .nav-link { font-size: 13px; color: #1D1D1F; text-decoration: none; opacity: .85; transition: opacity .15s; }
+  .nav-link:hover { opacity: 1; }
+
+  /* TIMELINE DOT */
+  .tl-dot { width: 10px; height: 10px; border-radius: 50%; background: #0071E3; flex-shrink: 0; margin-top: 6px; }
+
+  /* COUNTER */
+  .counter { font-variant-numeric: tabular-nums; }
+
+  /* HIGHLIGHT MARK */
+  .hl { background: linear-gradient(120deg, rgba(0,113,227,0.13) 0%, rgba(0,113,227,0.08) 100%); border-radius: 4px; padding: 0 4px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="nav-blur fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-6xl mx-auto px-6 h-12 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 no-underline">
+      <span class="font-mono text-[13px] font-bold text-apple-dark tracking-tight">CodyMentor</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="#mentorship" class="nav-link">Mentorship</a>
+      <a href="#team" class="nav-link">Team</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <a href="#contact">
+      <button class="btn-primary" style="padding:8px 18px;font-size:13px;">Get Started</button>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero-gradient hero-grid min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 pb-16">
+  <div class="reveal" id="hero-content">
+    <div class="badge mb-6">
+      <span style="width:6px;height:6px;border-radius:50%;background:#34C759;display:inline-block;"></span>
+      Sahiwal's #1 Software House · Est. 2026
+    </div>
+
+    <h1 style="font-size:clamp(2.6rem,7vw,5.5rem);font-weight:700;letter-spacing:-0.04em;line-height:1.05;color:#0A0A0B;margin:0 0 24px;">
+      Code.<br>
+      Build.<br>
+      <span class="text-apple-blue">Mentorship.</span>
+    </h1>
+
+    <p style="font-size:clamp(1rem,2vw,1.3rem);color:#6E6E73;max-width:520px;margin:0 auto 36px;line-height:1.55;font-weight:400;">
+      Pakistan's premium software house — crafting world-class web &amp; mobile products from Sahiwal, while training the next generation of developers.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="#contact"><button class="btn-primary"><i data-lucide="zap" style="width:16px;height:16px;"></i>Start a Project</button></a>
+      <a href="#services"><button class="btn-ghost"><i data-lucide="layers" style="width:16px;height:16px;"></i>Our Services</button></a>
+    </div>
+
+    <!-- Social proof row -->
+    <div class="flex flex-wrap justify-center gap-6 mt-14">
+      <div class="flex items-center gap-2">
+        <div class="flex">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <span style="font-size:13px;color:#6E6E73;">4.9/5 · 42 reviews</span>
+      </div>
+      <div style="width:1px;background:#D2D2D7;"></div>
+      <span style="font-size:13px;color:#6E6E73;">50+ Projects Delivered</span>
+      <div style="width:1px;background:#D2D2D7;"></div>
+      <span style="font-size:13px;color:#6E6E73;">100+ Developers Trained</span>
+      <div style="width:1px;background:#D2D2D7;"></div>
+      <span style="font-size:13px;color:#6E6E73;">30+ Countries</span>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div style="margin-top:60px;animation:bounce 2s infinite;" class="flex flex-col items-center gap-1 opacity-40">
+    <i data-lucide="chevrons-down" style="width:20px;height:20px;"></i>
+  </div>
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+</section>
+
+<!-- ═══════════════════ MARQUEE ═══════════════════ -->
+<div style="background:#F5F5F7;border-top:1px solid #D2D2D7;border-bottom:1px solid #D2D2D7;padding:14px 0;overflow:hidden;">
+  <div class="marquee-inner" style="white-space:nowrap;">
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Web Development</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Mobile Apps</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">UI/UX Design</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Developer Mentorship</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">React · Next.js · Laravel · Flutter</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Sahiwal · Punjab · Pakistan</span>
+    <span style="color:#D2D2D7;">·</span>
+    <!-- duplicate for seamless loop -->
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Web Development</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Mobile Apps</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">UI/UX Design</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Developer Mentorship</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">React · Next.js · Laravel · Flutter</span>
+    <span style="color:#D2D2D7;">·</span>
+    <span style="font-size:12px;color:#6E6E73;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;">Sahiwal · Punjab · Pakistan</span>
+    <span style="color:#D2D2D7;">·</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ SERVICES ═══════════════════ -->
+<section id="services" style="padding:100px 0 80px;">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-16 reveal">
+      <div class="badge mb-4">Services</div>
+      <h2 style="font-size:clamp(2rem,5vw,3.4rem);font-weight:700;letter-spacing:-0.03em;color:#0A0A0B;margin:0 0 16px;">Everything you need<br>to ship great software.</h2>
+      <p style="color:#6E6E73;font-size:1.05rem;max-width:480px;margin:0 auto;line-height:1.6;">From concept to deployment — we cover the full stack so you don't have to juggle vendors.</p>
+    </div>
+
+    <!-- 2×2 grid + 1 wide -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
+
+      <!-- Web Dev -->
+      <div class="card-glass rounded-3xl p-8">
+        <div class="icon-wrap mb-5" style="background:rgba(0,113,227,0.10);">
+          <i data-lucide="globe" style="width:22px;height:22px;color:#0071E3;"></i>
+        </div>
+        <h3 style="font-size:1.25rem;font-weight:650;letter-spacing:-0.02em;color:#0A0A0B;margin:0 0 10px;">Web Development</h3>
+        <p style="color:#6E6E73;font-size:14px;line-height:1.65;margin:0 0 20px;">Custom websites, e-commerce platforms, and production-grade web apps — built with modern frameworks and pixel-perfect attention to detail.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Laravel</span><span class="tag">Node.js</span>
+        </div>
+      </div>
+
+      <!-- App Dev -->
+      <div class="card-glass rounded-3xl p-8">
+        <div class="icon-wrap mb-5" style="background:rgba(52,199,89,0.10);">
+          <i data-lucide="smartphone" style="width:22px;height:22px;color:#34C759;"></i>
+        </div>
+        <h3 style="font-size:1.25rem;font-weight:650;letter-spacing:-0.02em;color:#0A0A0B;margin:0 0 10px;">Mobile App Development</h3>
+        <p style="color:#6E6E73;font-size:14px;line-height:1.65;margin:0 0 20px;">Native iOS &amp; Android apps and cross-platform solutions built with Flutter and React Native — smooth, fast, and App Store ready.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag">Flutter</span><span class="tag">React Native</span><span class="tag">iOS</span><span class="tag">Android</span>
+        </div>
+      </div>
+
+      <!-- UI/UX -->
+      <div class="card-glass rounded-3xl p-8">
+        <div class="icon-wrap mb-5" style="background:rgba(255,55,95,0.09);">
+          <i data-lucide="pen-tool" style="width:22px;height:22px;color:#FF375F;"></i>
+        </div>
+        <h3 style="font-size:1.25rem;font-weight:650;letter-spacing:-0.02em;color:#0A0A0B;margin:0 0 10px;">UI/UX Design</h3>
+        <p style="color:#6E6E73;font-size:14px;line-height:1.65;margin:0 0 20px;">Intuitive, human-centered interfaces that convert visitors into customers. Every pixel intentional, every flow friction-free.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">Design Systems</span>
+        </div>
+      </div>
+
+      <!-- Mentorship -->
+      <div class="card-glass rounded-3xl p-8" id="mentorship">
+        <div class="icon-wrap mb-5" style="background:rgba(255,159,10,0.10);">
+          <i data-lucide="graduation-cap" style="width:22px;height:22px;color:#FF9F0A;"></i>
+        </div>
+        <h3 style="font-size:1.25rem;font-weight:650;letter-spacing:-0.02em;color:#0A0A0B;margin:0 0 10px;">Developer Mentorship</h3>
+        <p style="color:#6E6E73;font-size:14px;line-height:1.65;margin:0 0 20px;">1-on-1 and group programs that take you from zero to hireable. 100+ devs trained. Real projects, real feedback, real careers.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag">Full-Stack</span><span class="tag">1-on-1</span><span class="tag">Career Track</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto px-6"></div>
+
+<!-- ═══════════════════ STATS ═══════════════════ -->
+<section style="padding:80px 0;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="counter text-apple-blue" style="font-size:2.8rem;font-weight:700;letter-spacing:-0.04em;line-height:1;" data-target="50">0</div>
+        <div style="font-size:13px;color:#6E6E73;margin-top:4px;font-weight:500;">Projects Delivered</div>
+      </div>
+      <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="counter text-apple-blue" style="font-size:2.8rem;font-weight:700;letter-spacing:-0.04em;line-height:1;" data-target="100">0</div>
+        <div style="font-size:13px;color:#6E6E73;margin-top:4px;font-weight:500;">Developers Trained</div>
+      </div>
+      <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="counter text-apple-blue" style="font-size:2.8rem;font-weight:700;letter-spacing:-0.04em;line-height:1;" data-target="95">0</div>
+        <div style="font-size:13px;color:#6E6E73;margin-top:4px;font-weight:500;">% Client Satisfaction</div>
+      </div>
+      <div class="stat-card rounded-2xl p-6 text-center">
+        <div class="counter text-apple-blue" style="font-size:2.8rem;font-weight:700;letter-spacing:-0.04em;line-height:1;" data-target="30">0</div>
+        <div style="font-size:13px;color:#6E6E73;margin-top:4px;font-weight:500;">Countries Served</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto px-6"></div>
+
+<!-- ═══════════════════ WHY US ═══════════════════ -->
+<section id="portfolio" style="padding:100px 0;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center reveal">
+
+      <!-- Left: bento-style feature grid -->
+      <div class="grid grid-cols-2 gap-3">
+        <div class="card-glass rounded-2xl p-5 col-span-2">
+          <i data-lucide="shield-check" style="width:20px;height:20px;color:#0071E3;margin-bottom:10px;"></i>
+          <div style="font-size:15px;font-weight:600;color:#0A0A0B;margin-bottom:4px;">ISO-Grade Quality</div>
+          <div style="font-size:13px;color:#6E6E73;line-height:1.55;">Code reviews, automated testing, and structured QA on every single delivery — no exceptions.</div>
+        </div>
+        <div class="card-glass rounded-2xl p-5">
+          <i data-lucide="clock" style="width:20px;height:20px;color:#34C759;margin-bottom:10px;"></i>
+          <div style="font-size:14px;font-weight:600;color:#0A0A0B;margin-bottom:3px;">24/7 Support</div>
+          <div style="font-size:12px;color:#6E6E73;line-height:1.5;">Mon–Sun, always reachable.</div>
+        </div>
+        <div class="card-glass rounded-2xl p-5">
+          <i data-lucide="zap" style="width:20px;height:20px;color:#FF9F0A;margin-bottom:10px;"></i>
+          <div style="font-size:14px;font-weight:600;color:#0A0A0B;margin-bottom:3px;">Fast Turnaround</div>
+          <div style="font-size:12px;color:#6E6E73;line-height:1.5;">Sprint-based delivery, weekly demos.</div>
+        </div>
+        <div class="card-glass rounded-2xl p-5">
+          <i data-lucide="users" style="width:20px;height:20px;color:#FF375F;margin-bottom:10px;"></i>
+          <div style="font-size:14px;font-weight:600;color:#0A0A0B;margin-bottom:3px;">14+ Experts</div>
+          <div style="font-size:12px;color:#6E6E73;line-height:1.5;">Dedicated team per project.</div>
+        </div>
+        <div class="card-glass rounded-2xl p-5">
+          <i data-lucide="globe" style="width:20px;height:20px;color:#BF5AF2;margin-bottom:10px;"></i>
+          <div style="font-size:14px;font-weight:600;color:#0A0A0B;margin-bottom:3px;">Global Clients</div>
+          <div style="font-size:12px;color:#6E6E73;line-height:1.5;">30+ countries and counting.</div>
+        </div>
+      </div>
+
+      <!-- Right: copy -->
+      <div>
+        <div class="badge mb-5">Why CodyMentor</div>
+        <h2 style="font-size:clamp(1.8rem,4vw,2.9rem);font-weight:700;letter-spacing:-0.03em;color:#0A0A0B;margin:0 0 20px;line-height:1.1;">Built different.<br>Delivered better.</h2>
+        <p style="color:#6E6E73;line-height:1.7;font-size:15px;margin-bottom:20px;">Most agencies ship code. We ship outcomes. Every project starts with a discovery call, a technical roadmap, and a fixed-scope agreement — no hidden costs, no vague timelines.</p>
+        <p style="color:#6E6E73;line-height:1.7;font-size:15px;margin-bottom:32px;">Based in Sahiwal, serving the world. Available on <span class="hl">Upwork</span> and <span class="hl">Fiverr</span> with verified ratings and public reviews you can actually trust.</p>
+        <div class="flex flex-wrap gap-3">
+          <a href="https://upwork.com" target="_blank"><button class="btn-primary" style="font-size:14px;padding:10px 22px;"><i data-lucide="external-link" style="width:14px;height:14px;"></i>View on Upwork</button></a>
+          <a href="https://fiverr.com" target="_blank"><button class="btn-ghost" style="font-size:14px;padding:9px 22px;"><i data-lucide="external-link" style="width:14px;height:14px;"></i>View on Fiverr</button></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto px-6"></div>
+
+<!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+<section style="padding:100px 0 80px;background:#F5F5F7;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+      <div class="badge mb-4">Client Reviews</div>
+      <h2 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:-0.03em;color:#0A0A0B;">4.9 stars across 42 reviews.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 reveal">
+
+      <div class="card-glass rounded-2xl p-6">
+        <div class="flex mb-3">
+          <span class="star">★★★★★</span>
+        </div>
+        <p style="font-size:14px;color:#1D1D1F;line-height:1.65;margin-bottom:16px;">"They delivered a full e-commerce platform in 3 weeks. Communication was impeccable and the code quality exceeded our expectations. Highly recommend."</p>
+        <div class="flex items-center gap-3">
+          <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#0071E3,#34C759);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;">AK</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#0A0A0B;">Ahmed K.</div>
+            <div style="font-size:11px;color:#6E6E73;">Dubai, UAE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6">
+        <div class="flex mb-3">
+          <span class="star">★★★★★</span>
+        </div>
+        <p style="font-size:14px;color:#1D1D1F;line-height:1.65;margin-bottom:16px;">"The mentorship program changed my career. In 4 months I went from zero coding knowledge to landing a junior dev role. Real project experience makes all the difference."</p>
+        <div class="flex items-center gap-3">
+          <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#FF9F0A,#FF375F);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;">SR</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#0A0A0B;">Sara R.</div>
+            <div style="font-size:11px;color:#6E6E73;">Lahore, Pakistan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6">
+        <div class="flex mb-3">
+          <span class="star">★★★★★</span>
+        </div>
+        <p style="font-size:14px;color:#1D1D1F;line-height:1.65;margin-bottom:16px;">"We've worked with agencies in London and New York. CodyMentor gives the same quality at a fraction of the cost, with better responsiveness. Genuinely impressive team."</p>
+        <div class="flex items-center gap-3">
+          <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#BF5AF2,#0071E3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;">MJ</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#0A0A0B;">Marcus J.</div>
+            <div style="font-size:11px;color:#6E6E73;">London, UK</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TEAM ═══════════════════ -->
+<section id="team" style="padding:100px 0 80px;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+      <div class="badge mb-4">Our Team</div>
+      <h2 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:700;letter-spacing:-0.03em;color:#0A0A0B;margin:0 0 12px;">14+ expert builders.</h2>
+      <p style="color:#6E6E73;font-size:1rem;max-width:420px;margin:0 auto;">Specialists across frontend, backend, mobile, design, and DevOps — all under one roof in Sahiwal.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      <!-- Team cards -->
+      <div class="card-glass rounded-2xl p-5 text-center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0071E3,#34C759);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">CM</div>
+        <div style="font-size:14px;font-weight:600;color:#0A0A0B;">Lead Dev</div>
+        <div style="font-size:12px;color:#6E6E73;">Full-Stack · React · Laravel</div>
+      </div>
+      <div class="card-glass rounded-2xl p-5 text-center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF9F0A,#FF375F);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">UX</div>
+        <div style="font-size:14px;font-weight:600;color:#0A0A0B;">Design Lead</div>
+        <div style="font-size:12px;color:#6E6E73;">UI/UX · Figma · Systems</div>
+      </div>
+      <div class="card-glass rounded-2xl p-5 text-center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#BF5AF2,#FF375F);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">MB</div>
+        <div style="font-size:14px;font-weight:600;color:#0A0A0B;">Mobile Lead</div>
+        <div style="font-size:12px;color:#6E6E73;">Flutter · iOS · Android</div>
+      </div>
+      <div class="card-glass rounded-2xl p-5 text-center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#34C759,#0071E3);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;">DV</div>
+        <div style="font-size:14px;font-weight:600;color:#0A0A0B;">DevOps Lead</div>
+        <div style="font-size:12px;color:#6E6E73;">AWS · Docker · CI/CD</div>
+      </div>
+    </div>
+    <p class="text-center mt-6" style="font-size:13px;color:#6E6E73;">+ 10 more specialists across QA, backend, and mentorship coaching</p>
+  </div>
+</section>
+
+<div class="divider max-w-6xl mx-auto px-6"></div>
+
+<!-- ═══════════════════ CTA BAND ═══════════════════ -->
+<section style="padding:100px 0;background:linear-gradient(135deg,#0A0A0B 0%,#1a1a2e 100%);">
+  <div class="max-w-6xl mx-auto px-6 text-center reveal">
+    <h2 style="font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-0.04em;color:#fff;margin:0 0 18px;line-height:1.08;">Ready to build<br><span style="color:#0071E3;">something great?</span></h2>
+    <p style="color:rgba(255,255,255,0.55);font-size:1.05rem;max-width:440px;margin:0 auto 36px;line-height:1.6;">Let's talk. Free consultation, honest scoping, no commitment required.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="#contact"><button class="btn-primary" style="font-size:15px;padding:14px 32px;"><i data-lucide="message-circle" style="width:17px;height:17px;"></i>Book Free Call</button></a>
+      <a href="https://wa.me/923186879182" target="_blank"><button class="btn-ghost" style="border-color:rgba(255,255,255,0.3);color:#fff;font-size:15px;padding:13px 30px;"><i data-lucide="message-square" style="width:17px;height:17px;"></i>WhatsApp</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section id="contact" style="padding:100px 0 80px;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
+      <!-- Left info -->
+      <div class="reveal">
+        <div class="badge mb-5">Contact</div>
+        <h2 style="font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-0.03em;color:#0A0A0B;margin:0 0 24px;line-height:1.1;">Let's start a conversation.</h2>
+
+        <div class="flex flex-col gap-5">
+          <div class="flex items-start gap-4">
+            <div class="icon-wrap" style="background:#F5F5F7;width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+              <i data-lucide="map-pin" style="width:17px;height:17px;color:#0071E3;"></i>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0A0A0B;margin-bottom:2px;">Office</div>
+              <div style="font-size:13px;color:#6E6E73;line-height:1.6;">Ganj Shakar Colony, near Abdullah Masjid<br>1KM University of Sahiwal, Muhammad Pur Road<br>Sahiwal, Punjab, Pakistan</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="icon-wrap" style="background:#F5F5F7;width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+              <i data-lucide="phone" style="width:17px;height:17px;color:#34C759;"></i>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0A0A0B;margin-bottom:2px;">Call / WhatsApp</div>
+              <a href="tel:+923186879182" style="font-size:13px;color:#0071E3;text-decoration:none;">+92 318 6879182</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="icon-wrap" style="background:#F5F5F7;width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+              <i data-lucide="mail" style="width:17px;height:17px;color:#FF9F0A;"></i>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0A0A0B;margin-bottom:2px;">Email</div>
+              <a href="mailto:info@codymentor.com" style="font-size:13px;color:#0071E3;text-decoration:none;">info@codymentor.com</a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="icon-wrap" style="background:#F5F5F7;width:40px;height:40px;border-radius:10px;flex-shrink:0;">
+              <i data-lucide="clock" style="width:17px;height:17px;color:#BF5AF2;"></i>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#0A0A0B;margin-bottom:2px;">Availability</div>
+              <div style="font-size:13px;color:#6E6E73;">24/7 · Monday through Sunday</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: contact form -->
+      <div class="card-glass rounded-3xl p-8 reveal">
+        <h3 style="font-size:1.1rem;font-weight:650;color:#0A0A0B;margin:0 0 24px;">Send us a message</h3>
+        <div class="flex flex-col gap-4">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#6E6E73;letter-spacing:0.02em;display:block;margin-bottom:6px;">FULL NAME</label>
+            <input type="text" placeholder="Your name" style="width:100%;border:1.5px solid #D2D2D7;border-radius:10px;padding:11px 14px;font-size:14px;color:#1D1D1F;background:#fff;outline:none;font-family:inherit;transition:border .15s;box-sizing:border-box;" onfocus="this.style.borderColor='#0071E3'" onblur="this.style.borderColor='#D2D2D7'">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#6E6E73;letter-spacing:0.02em;display:block;margin-bottom:6px;">EMAIL</label>
+            <input type="email" placeholder="you@example.com" style="width:100%;border:1.5px solid #D2D2D7;border-radius:10px;padding:11px 14px;font-size:14px;color:#1D1D1F;background:#fff;outline:none;font-family:inherit;transition:border .15s;box-sizing:border-box;" onfocus="this.style.borderColor='#0071E3'" onblur="this.style.borderColor='#D2D2D7'">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#6E6E73;letter-spacing:0.02em;display:block;margin-bottom:6px;">SERVICE</label>
+            <select style="width:100%;border:1.5px solid #D2D2D7;border-radius:10px;padding:11px 14px;font-size:14px;color:#1D1D1F;background:#fff;outline:none;font-family:inherit;box-sizing:border-box;appearance:none;">
+              <option>Web Development</option>
+              <option>Mobile App Development</option>
+              <option>UI/UX Design</option>
+              <option>Developer Mentorship</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:#6E6E73;letter-spacing:0.02em;display:block;margin-bottom:6px;">MESSAGE</label>
+            <textarea placeholder="Tell us about your project…" rows="4" style="width:100%;border:1.5px solid #D2D2D7;border-radius:10px;padding:11px 14px;font-size:14px;color:#1D1D1F;background:#fff;outline:none;font-family:inherit;resize:vertical;transition:border .15s;box-sizing:border-box;" onfocus="this.style.borderColor='#0071E3'" onblur="this.style.borderColor='#D2D2D7'"></textarea>
+          </div>
+          <button class="btn-primary" style="width:100%;justify-content:center;padding:13px;" onclick="this.innerHTML='<span>Sending…</span>';setTimeout(()=>{this.innerHTML='<span>✓ Message Sent!</span>';},1400);">
+            <i data-lucide="send" style="width:15px;height:15px;"></i>
+            Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer style="background:#F5F5F7;border-top:1px solid #D2D2D7;padding:56px 0 36px;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div style="font-family:monospace;font-size:15px;font-weight:700;color:#0A0A0B;margin-bottom:10px;">CodyMentor</div>
+        <p style="font-size:13px;color:#6E6E73;line-height:1.65;margin:0 0 16px;">Code. Build. Mentorship.<br>Sahiwal, Punjab, Pakistan.</p>
+        <div class="flex gap-3">
+          <a href="#" style="color:#6E6E73;"><i data-lucide="linkedin" style="width:16px;height:16px;"></i></a>
+          <a href="#" style="color:#6E6E73;"><i data-lucide="github" style="width:16px;height:16px;"></i></a>
+          <a href="#" style="color:#6E6E73;"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+          <a href="#" style="color:#6E6E73;"><i data-lucide="twitter" style="width:16px;height:16px;"></i></a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#0A0A0B;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:14px;">Services</div>
+        <div class="flex flex-col gap-2">
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Web Development</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">App Development</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">UI/UX Design</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Developer Mentorship</a>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#0A0A0B;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:14px;">Company</div>
+        <div class="flex flex-col gap-2">
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Portfolio</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Blog</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Dev Courses</a>
+          <a href="#" style="font-size:13px;color:#6E6E73;text-decoration:none;">Free Consultation</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#0A0A0B;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:14px;">Contact</div>
+        <div class="flex flex-col gap-2">
+          <a href="tel:+923186879182" style="font-size:13px;color:#6E6E73;text-decoration:none;">+92 318 6879182</a>
+          <a href="mailto:info@codymentor.com" style="font-size:13px;color:#6E6E73;text-decoration:none;">info@codymentor.com</a>
+          <span style="font-size:13px;color:#6E6E73;">Sahiwal, Punjab, Pakistan</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider mb-6"></div>
+
+    <div class="flex flex-wrap justify-between items-center gap-3">
+      <span style="font-size:12px;color:#6E6E73;">© 2026 CodyMentor Software House. All rights reserved.</span>
+      <div class="flex gap-5">
+        <a href="#" style="font-size:12px;color:#6E6E73;text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="font-size:12px;color:#6E6E73;text-decoration:none;">Terms of Service</a>
+        <a href="#" style="font-size:12px;color:#6E6E73;text-decoration:none;">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Init Lucide icons ──
+lucide.createIcons();
+
+
+
+// ── Counter animation ──
+const counters = document.querySelectorAll('.counter');
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = +el.dataset.target;
+    const suffix = target === 95 ? '%' : '+';
+    let start = 0;
+    const dur = 1600;
+    const step = Math.ceil(target / (dur / 16));
+    const tick = () => {
+      start = Math.min(start + step, target);
+      el.textContent = start + suffix;
+      if (start < target) requestAnimationFrame(tick);
+    };
+    tick();
+    cio.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => cio.observe(c));
+
+// ── Re-init lucide after DOM ready ──
+window.addEventListener('load', () => lucide.createIcons());
+</script>
+</body>
+</html>
